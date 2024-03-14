@@ -274,7 +274,7 @@ def transaction_submit(self, file_path: str, submit_url: Union[str, None] = None
             )
 
 @request_wrapper
-def transaction_submit_cbor(self, tx_cbor: Union[bytes, str], submit_url: Union[str,None] **kwargs):
+def transaction_submit_cbor(self, tx_cbor: Union[bytes, str], submit_url: Union[str,None], **kwargs):
     """
     Submit an already serialized transaction to the network.
 
