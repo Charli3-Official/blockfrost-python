@@ -246,7 +246,7 @@ def transaction_redeemers(self, hash: str, **kwargs):
 
 
 @request_wrapper
-def transaction_submit(self, file_path: str, **kwargs):
+def transaction_submit(self, file_path: str, submit_url: Union[str, None] = None, **kwargs):
     """
     Submit an already serialized transaction to the network.
 
@@ -262,12 +262,16 @@ def transaction_submit(self, file_path: str, **kwargs):
     header = self.default_headers
     header['Content-Type'] = 'application/cbor'
     with open(file_path, 'rb') as file:
-        return requests.post(
-            url=f"{self.url}/tx/submit",
-            headers=header,
-            data=file,
-        )
 
+        if submit_url is not None:
+            path = f"{submit_url}/api/submit/tx"
+        else:
+            path = f"{self.url}/tx/submit"
+        return requests.post(
+                url=path,
+                headers=header,
+                data=file,
+            )
 
 @request_wrapper
 def transaction_submit_cbor(self, tx_cbor: Union[bytes, str], **kwargs):
