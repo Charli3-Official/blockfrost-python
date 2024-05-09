@@ -62,7 +62,7 @@ def request_wrapper(func):
     @wraps(func)
     def error_wrapper(*args, **kwargs):
         request_response: Response = func(*args, **kwargs)
-        if request_response.status_code != 200:
+        if request_response.status_code not in [200, 202]:
             raise ApiError(request_response)
         else:
             if 'return_type' in kwargs:
@@ -73,7 +73,10 @@ def request_wrapper(func):
                 elif kwargs['return_type'] == 'json':
                     return request_response.json()
             else:
-                return convert_json_to_object(request_response.json())
+                if request_response.content:
+                    return convert_json_to_object(request_response.json())
+                else:
+                    return None
 
     return error_wrapper
 

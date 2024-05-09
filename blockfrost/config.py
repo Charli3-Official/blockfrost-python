@@ -12,7 +12,7 @@ class ApiUrls(Enum):
     ipfs = 'https://ipfs.blockfrost.io/api'
 
 
-DEFAULT_API_VERSION = 'v0'
+DEFAULT_API_VERSION = None
 DEFAULT_ORDER = 'asc'
 DEFAULT_PAGINATION_PAGE_COUNT = 1
 DEFAULT_PAGINATION_PAGE_ITEMS_COUNT = 100
